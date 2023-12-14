@@ -32,7 +32,7 @@ runs:
       run: |
               echo "TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
               echo "DEST=${{ inputs.dest }}" >> $GITHUB_ENV
-              echo "URL"=${{ github.event.issue. }}" >> $GITHUB_ENV
+              echo "URL"=${{ github.event.issue.html_url }}" >> $GITHUB_ENV
       shell: bash
     - name: Generate the PDF
       id: make-pdf
