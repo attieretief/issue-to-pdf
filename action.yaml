@@ -2,8 +2,6 @@
 name: 'Issue to PDF'
 description: 'A GitHub Action to monitor and convert issues into PDF files within your repository.'
 author: 'Attie Retief'
-icon: file
-color: green
 inputs:
   token:
     description: Personal access token
