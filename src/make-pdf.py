@@ -36,8 +36,8 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 errors = []
-auth = f'{"Authorization": "Bearer {token}"}'
-r = requests.get(url=url,auth=auth)
+headers = {"Authorization": "Bearer " + token}
+r = requests.get(url=url,headers=headers)
 if r.status_code == 200:
     print('\nConverting page to PDF: ' + url)
     c = r.text
