@@ -1,0 +1,21 @@
+name: Test Action
+on:
+  issues:
+    types:
+      - labeled
+      - edited
+
+jobs:
+  get-num-square:
+    runs-on: ubuntu-latest
+    name: Returns the number square
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Fetch num squared
+        id: make-pdf
+        uses: ./ # Uses an action in the root directory
+        # or use a released GitHub Action
+        # uses: shipyard/github-action/fetch-shipyard-env@1.0.0
+        with:
+          token: ${{ secrets.PERSONAL_KEY }}
