@@ -50,7 +50,7 @@ if r.status_code == 200:
     html_body = str(soup.find(class_='repohead'))
     html_body = str(html_body) + str(soup.find(id='show_issue'))
 
-    full_html = html_head + html_body + tags
+    full_html = html_head + html_body
 
     try:
         if soup.find(id='show_issue'):

@@ -6,13 +6,13 @@ on:
       - edited
 
 jobs:
-  get-num-square:
+  issue-to-pdf:
     runs-on: ubuntu-latest
     name: issue-to-pdf
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Fetch num squared
+      - name: make-pdf
         id: make-pdf
         uses: ./ # Uses an action in the root directory
         # or use a released GitHub Action
