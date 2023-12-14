@@ -1,0 +1,43 @@
+# action.yaml
+name: 'Issue to PDF'
+description: 'A GitHub Action to monitor and convert issues into PDF files within your repository.'
+author: 'Attie Retief'
+inputs:
+  token:
+    description: Personal access token
+    required: true
+  dest:
+    required: false
+    description: Destination path generated PDF files
+    default: 'PDFs'
+  label:
+    description: Label on issue to trigger the update
+    required: false
+    default: 'publish'
+  authors:
+    description: List of authors that are authorized to perform this Action
+    required: false
+
+runs:
+  using: 'composite'
+  jobs:
+    make-pdf:
+    if: (contains(github.event.issue.labels.*.name, inputs.token)) && (contains(github.event.issue.user.login, inputs.authors))
+    steps:
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+        shell: bash
+      - name: Pass Inputs to Shell
+        run: |
+                echo "TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
+                echo "DEST=${{ inputs.dest }}" >> $GITHUB_ENV
+                echo "URL"=${{ github.event.issue. }}" >> $GITHUB_ENV
+        shell: bash
+      - name: Generate the PDF
+        id: make-pdf
+        run: python src/make-pdf.py
+        shell: bash
