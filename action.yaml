@@ -28,11 +28,11 @@ inputs:
   logo:
     description: Company logo to include in the PDF file
     required: false
-    default: sampels/logo.svg
+    default: logo
   css:
     description: CSS file to use for styling the markdown PDF
     required: false
-    default: samples/spec.css
+    default: templates/spec.css
 
 runs:
   using: 'composite'
