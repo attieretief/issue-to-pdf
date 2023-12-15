@@ -15,7 +15,7 @@
     @top-left {
       background-color: rgb(210, 229, 255);
       color: #244369;
-      content: string(sub);
+      content: string(title);
       padding-top: 1.6cm;
       width: 85%
     }
