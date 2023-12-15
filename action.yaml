@@ -59,7 +59,7 @@ runs:
         echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
         echo "REPO=${{ github.event.repository.name }}" >> $GITHUB_ENV
         echo "${{ github.event.issue.body }}" > body.md
-        echo "cp ${{ inputs.logo }} logo"
+        cp ${{ inputs.logo }} logo
       shell: bash
     - name: Generate the PDF
       id: make-pdf
