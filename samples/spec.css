@@ -27,7 +27,7 @@
     }
   
     @top-right {
-      background: url(logo.svg) rgb(210, 229, 255) no-repeat right;
+      background: url(logo) rgb(210, 229, 255) no-repeat right;
       background-size: 5cm;
       content: "";
       width: 5cm;
@@ -60,7 +60,7 @@
     }
   
     @top-right {
-      background: url(logo.svg) no-repeat right;
+      background: url(logo) no-repeat right;
       background-size: 5cm;
     }
   

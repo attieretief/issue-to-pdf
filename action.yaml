@@ -19,12 +19,16 @@ inputs:
     default: 'Issue'
   dest:
     required: false
-    description: Destination path generated PDF files
-    default: 'PDFs'    
+    description: Destination path generated PDF file
+    default: 'PDFs'
   address:
-    description: Company address to include on thee cover page
+    description: Company address to include on the cover page
     required: true
     default: "<strong>COMPANY</strong><br>Address line 1<br>Address line 2<br>Address line 3<br>Address line 4<br>Company web address"
+  logo:
+    description: Company logo to include in the PDF file
+    required: false
+    default: sampels/logo.svg
   css:
     description: CSS file to use for styling the markdown PDF
     required: false
@@ -46,6 +50,7 @@ runs:
         echo "DEST=${{ inputs.dest }}" >> $GITHUB_ENV
         echo "ADDRESS=${{ inputs.address }}" >> $GITHUB_ENV
         echo "CSS=${{ inputs.css }}" >> $GITHUB_ENV
+        echo "LOGO=${{ inputs.logo }}" >> $GITHUB_ENV
         echo "NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
         echo "TITLE=${{ inputs.title }}" >> $GITHUB_ENV
         echo "SUBTITLE=${{ github.event.issue.title }}" >> $GITHUB_ENV

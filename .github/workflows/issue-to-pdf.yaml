@@ -21,6 +21,8 @@ jobs:
         # uses: shipyard/github-action/fetch-shipyard-env@1.0.0
         with:
           token: ${{ secrets.PERSONAL_KEY }}
+          title: "Technical Specification"
+          address: "<strong>LINC</strong><br>5th Floor, Gihon Building<br>Sportica Crescent<br>Tygervalley<br>Belville<br>linc.co.za"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'pdf from gh issue'
