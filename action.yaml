@@ -39,9 +39,9 @@ runs:
     - name: Pass Inputs to Shell
       run: |
         {
-          echo 'BODY<<~'
+          echo "BODY<<~"
           ${{ github.event.issue.body }}
-          echo ~
+          echo "~""
         } >> "$GITHUB_ENV"
         echo "TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
         echo "DEST=${{ inputs.dest }}" >> $GITHUB_ENV
