@@ -17,7 +17,7 @@ updated = os.environ.get("UPDATED").replace('T',' ').replace('Z','')
 repo = os.environ.get("REPO")
 css = os.environ.get("CSS")
 address = os.environ.get("ADDRESS")
-body = open(body.md, mode="r", encoding="utf-8").read()
+body = open("body.md", mode="r", encoding="utf-8").read()
 
 def _html(markdown_file_name, css_file_name):
     with open(markdown_file_name, mode="r", encoding="utf-8") as markdown_file:
