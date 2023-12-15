@@ -38,10 +38,11 @@ runs:
       shell: bash
     - name: Pass Inputs to Shell
       run: |
+        delimiter="~"
         {
-          echo "BODY<<~"
+          echo "BODY<<$delimiter"
           ${{ github.event.issue.body }}
-          echo "~""
+          echo "$delimiter"
         } >> "$GITHUB_ENV"
         echo "TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
         echo "DEST=${{ inputs.dest }}" >> $GITHUB_ENV
