@@ -13,6 +13,10 @@ inputs:
     description: Label on issue to trigger the update
     required: false
     default: 'publish'
+  title:
+    description: Title of the PDF document
+    required: true
+    default: 'Issue'
   dest:
     required: false
     description: Destination path generated PDF files
@@ -43,10 +47,12 @@ runs:
         echo "ADDRESS=${{ inputs.address }}" >> $GITHUB_ENV
         echo "CSS=${{ inputs.css }}" >> $GITHUB_ENV
         echo "NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
-        echo "TITLE=${{ github.event.issue.title }}" >> $GITHUB_ENV
+        echo "TITLE=${{ inputs.title }}" >> $GITHUB_ENV
+        echo "SUBTITLE=${{ github.event.issue.title }}" >> $GITHUB_ENV
         echo "AUTHOR=${{ github.event.issue.user.name }}" >> $GITHUB_ENV
         echo "CREATED=${{ github.event.issue.created_at }}" >> $GITHUB_ENV
         echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
+        echo "EVENTSURL=${{ github.event.issue.events_url }}" >> $GITHUB_ENV
         echo "REPO=${{ github.event.repository.name }}" >> $GITHUB_ENV
         echo "BODY=${{ github.event.issue.body }}" >> $GITHUB_ENV
       shell: bash

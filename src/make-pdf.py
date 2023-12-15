@@ -1,6 +1,6 @@
 import os
 import markdown
-import markdown_include.include
+from markdown_include.include import MarkdownInclude
 from weasyprint import HTML
 from datetime import datetime
 
@@ -9,36 +9,85 @@ token = os.environ.get("TOKEN")
 output_dir = os.environ.get("DEST")
 number = os.environ.get("NUMBER")
 title = os.environ.get("TITLE")
+subtitle = os.environ.get("SUBTITLE")
 body = os.environ.get("BODY")
 author = os.environ.get("AUTHOR")
-created = os.environ.get("CREATED")
-updated = os.environ.get("UPDATED")
+created = os.environ.get("CREATED").replace('T',' ').replace('Z','')
+updated = os.environ.get("UPDATED").replace('T',' ').replace('Z','')
 repo = os.environ.get("REPO")
 css = os.environ.get("CSS")
 address = os.environ.get("ADDRESS")
+eventsurl = os.environ.get("EVENTSURL")
 
-def _html(markdown_input, css_file_name):
-    with open(css_file_name, mode="r", encoding="utf-8") as css_file:
-        css_input = css_file.read()
+def _html(markdown_file_name, css_file_name):
+    with open(markdown_file_name, mode="r", encoding="utf-8") as markdown_file:
+        with open(css_file_name, mode="r", encoding="utf-8") as css_file:
+            markdown_input = markdown_file.read()
+            css_input = css_file.read()
 
-        html = markdown.markdown(
-            markdown_input, extensions=[markdown_include.include]
-        )
+            markdown_path = os.path.dirname(markdown_file_name)
+            markdown_include = MarkdownInclude(configs={"base_path": markdown_path})
+            html = markdown.markdown(
+                markdown_input, extensions=["extra", markdown_include, "meta", "tables"]
+            )
 
-        return f"""
-        <html>
-            <head>
-            <style>{css_input}</style>
-            </head>
-            <body>{html}</body>
-        </html>
-        """
+            return f"""
+            <html>
+              <head>
+                <style>{css_input}</style>
+              </head>
+              <body>{html}</body>
+            </html>
+            """
 
-def _convert(file_name, markdown_input, css_file_name):
-    html_string = _html(markdown_input, css_file_name)
 
-    html = HTML(string=html_string)
+def _convert(markdown_file_name, css_file_name):
+    file_name = os.path.splitext(markdown_file_name)[0]
+    html_string = _html(markdown_file_name, css_file_name)
+
+    with open(
+        file_name + ".html", "w", encoding="utf-8", errors="xmlcharrefreplace"
+    ) as output_file:
+        output_file.write(html_string)
+
+    markdown_path = os.path.dirname(markdown_file_name)
+    html = HTML(string=html_string, base_url=markdown_path)
     html.write_pdf(file_name + ".pdf")
+
+
+def _mdinput():
+    return (
+        f'# {title}\n\n'
+        f'{subtitle}\n'
+        '{: .sub}\n\n'
+        '<div class="footer">'
+        '<div class="address">'
+        f'{address}'
+        '</div>'
+        '<div class="contact">'
+        '<strong>Author</strong><br>'
+        f'{author}<br>'
+        '<strong>Repository</strong><br>'
+        f'{repo}<br>'
+        '<strong>Issue Number</strong><br>'
+        f'#{number}'
+        '</div>'
+        '<div>'
+        '<strong>Created</strong><br>'
+        f'{created}<br>'
+        '<strong>Modified</strong><br>'
+        f'{updated}'
+        '</div>'
+        '</div>\n\n'
+    )
+
+def _mdfile(markdown_input, css_file_name):
+    with open(output_dir + '/md.md', mode="w", encoding="utf-8") as markdown_file:
+        markdown_file.write(_mdinput())
+        markdown_file.write(markdown_input)
+    markdown_file.close()
+    _convert(markdown_file.name, css_file_name)
+
 
 def log_error(error):
     if not os.path.isfile(output_dir + "error_log.txt"):
@@ -50,17 +99,16 @@ def log_error(error):
         myfile.close()
     return
 
-print("starting...")
 
 # Create the output folder if it doesn't exist
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 errors = []
-print('\nConverting issue to PDF')
-try:
-    _convert(markdown_input=body,css_file_name=css)
-except:
-    log_error(number)
+print('Converting Github Issue to PDF')
+# try:
+_mdfile(markdown_input=body,css_file_name=css)
+# except:
+    # log_error(number)
 
 print('Find your exported PDF in ' +output_dir )
