@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PERSONAL_KEY }}
       - name: make-pdf
         id: make-pdf
         uses: ./ # Uses an action in the root directory
