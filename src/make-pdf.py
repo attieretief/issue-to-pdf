@@ -112,7 +112,7 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 # Move the logo to the output folder
-if os.path.exists('../logo'):
+if os.path.exists('logo'):
     os.rename('logo',output_dir + '/logo')
 
 errors = []
