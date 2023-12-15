@@ -44,7 +44,11 @@ runs:
               echo "CSS=${{ inputs.css }}" >> $GITHUB_ENV
               echo "NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
               echo "TITLE=${{ github.event.issue.title }}" >> $GITHUB_ENV
-              {echo "BODY=${{ github.event.issue.body }}"} >> $GITHUB_ENV
+              {
+              echo 'BODY<<EOF'
+              ${{ github.event.issue.body }}
+              echo EOF
+              } >> "$GITHUB_ENV"
               echo "AUTHOR=${{ github.event.issue.user.name }}" >> $GITHUB_ENV
               echo "CREATED=${{ github.event.issue.created_at }}" >> $GITHUB_ENV
               echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
