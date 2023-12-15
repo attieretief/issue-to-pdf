@@ -10,7 +10,7 @@ output_dir = os.environ.get("DEST")
 number = os.environ.get("NUMBER")
 title = os.environ.get("TITLE")
 subtitle = os.environ.get("SUBTITLE")
-body = os.environ.get("BODY")
+labels = os.environ.get("LABELS")
 author = os.environ.get("AUTHOR")
 created = os.environ.get("CREATED").replace('T',' ').replace('Z','')
 updated = os.environ.get("UPDATED").replace('T',' ').replace('Z','')
@@ -18,6 +18,7 @@ repo = os.environ.get("REPO")
 css = os.environ.get("CSS")
 address = os.environ.get("ADDRESS")
 body = open("body.md", mode="r", encoding="utf-8").read()
+
 
 def _html(markdown_file_name, css_file_name):
     with open(markdown_file_name, mode="r", encoding="utf-8") as markdown_file:
@@ -55,7 +56,13 @@ def _convert(markdown_file_name, css_file_name):
     html.write_pdf(file_name + ".pdf")
 
 
+def _client():
+    for l in labels:
+        if "client:" in l:
+            return(l.split(":")[0])
+
 def _mdinput():
+
     return (
         f'# {title}\n\n'
         f'{subtitle}\n'
@@ -65,14 +72,16 @@ def _mdinput():
         f'{address}'
         '</div>'
         '<div class="contact">'
-        '<strong>Author</strong><br>'
-        f'{author}<br>'
+        '<strong>Client</strong><br>'
+        f'{_client()}<br>'
         '<strong>Repository</strong><br>'
         f'{repo}<br>'
         '<strong>Issue Number</strong><br>'
         f'#{number}'
         '</div>'
         '<div>'
+        '<strong>Author</strong><br>'
+        f'{author}<br>'
         '<strong>Created</strong><br>'
         f'{created}<br>'
         '<strong>Modified</strong><br>'
@@ -95,6 +104,7 @@ def _cleanup():
     os.remove(output_dir + '/' + str(number) + '.html')
     if os.path.exists(output_dir + '/logo'):
         os.remove(output_dir + '/logo')
+
 
 def log_error(error):
     if not os.path.isfile(output_dir + "error_log.txt"):
