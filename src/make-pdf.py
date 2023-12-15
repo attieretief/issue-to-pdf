@@ -57,6 +57,7 @@ def _convert(markdown_file_name, css_file_name):
 
 
 def _client():
+    return labels
     for l in labels:
         print(l)
         if "client:" in l.name:
