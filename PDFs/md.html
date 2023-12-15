@@ -1,0 +1,137 @@
+
+            <html>
+              <head>
+                <style>@page {
+    margin-top: 4cm;
+    size: A4;
+  
+    @bottom-left {
+      color: #808080;
+      content: string(title) " - " string(heading);
+    }
+  
+    @bottom-right {
+      color: #808080;
+      content: counter(page) " of " counter(pages);
+    }
+  
+    @top-left {
+      background-color: rgb(210, 229, 255);
+      color: #244369;
+      content: string(sub);
+      padding-top: 1.6cm;
+      width: 100%
+    }
+  
+    @top-left-corner {
+      background-color: rgb(210, 229, 255);
+      content: "";
+      width: 100%;
+    }
+  
+    @top-right {
+      background: url(logo.svg) rgb(210, 229, 255) no-repeat right;
+      background-size: 5cm;
+      content: "";
+      width: 5cm;
+    }
+  
+    @top-right-corner {
+      background-color: rgb(210, 229, 255);
+      content: "";
+      width: 100%;
+    }
+  }
+  
+  @page cover {
+    background-color: rgb(210, 229, 255);
+  
+    @bottom-left {
+      content: "";
+    }
+  
+    @bottom-right {
+      content: "";
+    }
+  
+    @top-left {
+      content: none;
+    }
+  
+    @top-left-corner {
+      content: none;
+    }
+  
+    @top-right {
+      background: url(logo.svg) no-repeat right;
+      background-size: 5cm;
+    }
+  
+    @top-right-corner {
+      content: none;
+    }
+  }
+  
+  html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.25;
+    font-size: 0.75rem;
+  }
+  
+  h1 {
+    color: #244369;
+    font-size: 2rem;
+    page: cover;
+    string-set: title content();
+    margin-bottom: 0rem;
+    margin-top: 50%;
+  }
+  
+  .sub {
+    color: #244369;
+    string-set: sub content();
+    font-size: 1rem;
+    font-style: italic;
+    margin-top: 0;
+  }
+  
+  .footer {
+    font-size: 0.9rem;
+    color: #244369;
+    display: flex;
+    margin-top: 65%;
+  }
+  
+  .footer div {
+    border-left: 1px solid #244369;
+    flex: 3;
+    padding-left: 2rem;
+  }
+  
+  h2 {
+    margin-top: 3rem;
+    page-break-before: always;
+    string-set: heading content();
+  }
+  
+  h2::before {
+    background-color: rgb(210, 229, 255);
+    content: "";
+    display: inline-block;
+    height: 1rem;
+    margin-right: 0.75rem;
+    width: 1rem;
+  }</style>
+              </head>
+              <body><h1>Issue</h1>
+<p class="sub">First test issue</p>
+<div class="footer"><div class="address"><strong>COMPANY</strong><br>Address line 1<br>Address line 2<br>Address line 3<br>Address line 4<br>Company web address</div><div class="contact"><strong>Author</strong><br><br><strong>Repository</strong><br>issue-to-pdf<br><strong>Issue Number</strong><br>#1</div><div><strong>Created</strong><br>2023-12-14 18:53:34<br><strong>Modified</strong><br>2023-12-15 13:51:41</div></div>
+
+<h2>Background</h2>
+<p>This is some stuff you need to know
+About this specification</p>
+<h2>Detailed design</h2>
+<p>This is some stuff you need to know
+About this specification</p></body>
+            </html>
+            
