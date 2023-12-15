@@ -109,6 +109,10 @@ def log_error(error):
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
+# Move the logo to the output folder
+if os.path.exists('../logo'):
+    os.rename('../logo',output_dir + '/logo')
+
 errors = []
 print('Converting Github Issue to PDF')
 try:
