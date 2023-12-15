@@ -1,21 +1,46 @@
-### This script scrapes the issues for a github project, and saves each one as a PDF.
-
-import pdfkit
-import requests
-import re
 import os
-from bs4 import BeautifulSoup
+import markdown
+import markdown_include.include
+from weasyprint import HTML
 from datetime import datetime
 
 # OPTIONS:
-# Personal Access Token with Repo access
 token = os.environ.get("TOKEN")
-# Output directory to save PDFs
 output_dir = os.environ.get("DEST")
-# Issue URL to use as source for PDF
-url = os.environ.get("URL")
+number = os.environ.get("NUMBER")
+title = os.environ.get("TITLE")
+body = os.environ.get("BODY")
+author = os.environ.get("AUTHOR")
+created = os.environ.get("CREATED")
+updated = os.environ.get("UPDATED")
+repo = os.environ.get("REPO")
+css = os.environ.get("CSS")
+address = os.environ.get("ADDRESS")
 
-def log_error(error):   
+def _html(markdown_input, css_file_name):
+    with open(css_file_name, mode="r", encoding="utf-8") as css_file:
+        css_input = css_file.read()
+
+        html = markdown.markdown(
+            markdown_input, extensions=[markdown_include.include]
+        )
+
+        return f"""
+        <html>
+            <head>
+            <style>{css_input}</style>
+            </head>
+            <body>{html}</body>
+        </html>
+        """
+
+def _convert(file_name, markdown_input, css_file_name):
+    html_string = _html(markdown_input, css_file_name)
+
+    html = HTML(string=html_string)
+    html.write_pdf(file_name + ".pdf")
+
+def log_error(error):
     if not os.path.isfile(output_dir + "error_log.txt"):
         # Log file does not exist, so write explanatory header  
         with open(output_dir + "error_log.txt", "a") as myfile:
@@ -27,40 +52,15 @@ def log_error(error):
 
 print("starting...")
 
-options = {
-    'dpi':'300' # This zooms in to make the PDFs more readable (recommended) 
-}
-
 # Create the output folder if it doesn't exist
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 errors = []
-headers = {"Authorization": "Bearer " + token}
-r = requests.get(url=url,headers=headers)
-if r.status_code == 200:
-    print('\nConverting page to PDF: ' + url)
-    c = r.text
-    # Strip versioning number from <link> paths (e.g. example.css?1234 -> example.css)
-    # This is needed to avoid an error with wkpdftohtml
-    # see thread at https://github.com/wkhtmltopdf/wkhtmltopdf/issues/2051
-    html = re.sub('#(\.css|\.js)\?[^"]+#', '$1', c)
-    soup = BeautifulSoup(html, "lxml")
-    html_head = str(soup.head)
-    html_body = str(soup.find(class_='repohead'))
-    html_body = str(html_body) + str(soup.find(id='show_issue'))
-
-    full_html = html_head + html_body
-
-    try:
-        if soup.find(id='show_issue'):
-            pdfkit.from_string(full_html, output_dir +str(i) +'.pdf', options=options)
-        else:
-            print('\nIssue does not exist:' + url)
-    except:
-        log_error(url)
-
-elif r.status_code == 404:
-    print('\n404 not found: ' + url)
+print('\nConverting issue to PDF')
+try:
+    _convert(markdown_input=body,css_file_name=css)
+except:
+    log_error(number)
 
 print('Find your exported PDF in ' +output_dir )

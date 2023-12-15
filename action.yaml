@@ -9,14 +9,22 @@ inputs:
   token:
     description: Personal access token
     required: true
-  dest:
-    required: false
-    description: Destination path generated PDF files
-    default: 'PDFs'
   label:
     description: Label on issue to trigger the update
     required: false
     default: 'publish'
+  dest:
+    required: false
+    description: Destination path generated PDF files
+    default: 'PDFs'    
+  address:
+    description: Company address to include on thee cover page
+    required: true
+    default: "<strong>COMPANY</strong><br>Address line 1<br>Address line 2<br>Address line 3<br>Address line 4<br>Company web address"
+  css:
+    description: CSS file to use for styling the markdown PDF
+    required: false
+    default: samples/spec.css
 
 runs:
   using: 'composite'
@@ -32,7 +40,15 @@ runs:
       run: |
               echo "TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
               echo "DEST=${{ inputs.dest }}" >> $GITHUB_ENV
-              echo "URL=${{ github.event.issue.html_url }}" >> $GITHUB_ENV
+              echo "ADDRESS=${{ inputs.address }}" >> $GITHUB_ENV
+              echo "CSS=${{ inputs.css }}" >> $GITHUB_ENV
+              echo "NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
+              echo "TITLE=${{ github.event.issue.title }}" >> $GITHUB_ENV
+              echo "BODY=${{ github.event.issue.body }}" >> $GITHUB_ENV
+              echo "AUTHOR=${{ github.event.issue.user.name }}" >> $GITHUB_ENV
+              echo "CREATED=${{ github.event.issue.created_at }}" >> $GITHUB_ENV
+              echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
+              echo "REPO=${{ github.event.repository }}" >> $GITHUB_ENV
       shell: bash
     - name: Generate the PDF
       id: make-pdf
