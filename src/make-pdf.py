@@ -58,10 +58,10 @@ def _convert(markdown_file_name, css_file_name):
 
 def _client():
     return labels
-    for l in labels:
-        print(l)
-        if "client:" in l.name:
-            return(l.name.split(":")[0])
+    # for l in labels:
+    #     print(l)
+    #     if "client:" in l.name:
+    #         return(l.name.split(":")[0])
 
 def _mdinput():
     return (
