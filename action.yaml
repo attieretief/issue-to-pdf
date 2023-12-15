@@ -53,11 +53,7 @@ runs:
         echo "CREATED=${{ github.event.issue.created_at }}" >> $GITHUB_ENV
         echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
         echo "REPO=${{ github.event.repository.name }}" >> $GITHUB_ENV
-        {
-          echo 'BODY<<EOF'
-          ${{ github.event.issue.body }}
-          echo EOF
-        } >> "$GITHUB_ENV"
+        echo "${{ github.event.issue.body }}" > body.md
       shell: bash
     - name: Generate the PDF
       id: make-pdf
