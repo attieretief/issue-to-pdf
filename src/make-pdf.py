@@ -82,12 +82,17 @@ def _mdinput():
     )
 
 def _mdfile(markdown_input, css_file_name):
-    with open(output_dir + '/md.md', mode="w", encoding="utf-8") as markdown_file:
+    with open(output_dir + '/' + str(number) + '.md', mode="w", encoding="utf-8") as markdown_file:
         markdown_file.write(_mdinput())
         markdown_file.write(markdown_input)
     markdown_file.close()
     _convert(markdown_file.name, css_file_name)
 
+
+def _cleanup():
+    os.remove("body.md")
+    os.remove(output_dir + '/' + str(number) + '.md')
+    os.remove(output_dir + '/' + str(number) + '.html')
 
 def log_error(error):
     if not os.path.isfile(output_dir + "error_log.txt"):
@@ -106,9 +111,10 @@ if not os.path.exists(output_dir):
 
 errors = []
 print('Converting Github Issue to PDF')
-# try:
-_mdfile(markdown_input=body,css_file_name=css)
-# except:
-    # log_error(number)
+try:
+    _mdfile(markdown_input=body,css_file_name=css)
+    _cleanup()
+except:
+    log_error(number)
 
 print('Find your exported PDF in ' +output_dir )
