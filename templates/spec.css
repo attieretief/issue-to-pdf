@@ -4,7 +4,7 @@
   
     @bottom-left {
       color: #808080;
-      content: string(title) "\A" string(chapter) " - " string(heading);
+      content: string(chapter) " - " string(heading);
     }
   
     @bottom-right {

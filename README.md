@@ -27,7 +27,6 @@ jobs:
         uses: attieretief/issue-to-pdf@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          title: "Technical Specification"
           address: "<strong>COMPANY</strong><br>Address1<br>Address2<br>Address3<br>Address4<br>homepage"
           logo: "templates/logo"
       - name: Commit
@@ -51,6 +50,11 @@ on:
 ## How issue markdown is used
 
 The markdown content of the first comment (body) of the issue is used to generate the PDF by styling it with the default or custom css.
+
+The issue title is used as the main title of the PDF document.
+
+- Each h1 header starts a new chapter with a cover page.
+- Each h2 header starts a new page within a chapter.
 
 ## How It Works
 
@@ -94,9 +98,6 @@ Visit https://github.com/settings/tokens/new to create a new personal access tok
   with:
     # Required
     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-    # Main title of the generated PDF document
-    title: 'Issue Specification'
 
     # Company address to include on cover page of PDF document
     address: '<strong>COMPANY</strong><br>Address line 1<br>Address line 2<br>Address line 3<br>Address line 4<br>Company web address'

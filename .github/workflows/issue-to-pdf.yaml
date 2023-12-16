@@ -19,8 +19,7 @@ jobs:
         uses: ./
         with:
           token: ${{ secrets.PERSONAL_KEY }}
-          title: "Technical Specification"
-          address: "<strong>LINC</strong><br>5th Floor, Gihon Building<br>Sportica Crescent<br>Tygervalley<br>Belville<br>linc.co.za"
+          address: "<strong>COMPANY</strong><br>Address line 1<br>Address line 2<br>Address line 3<br>Address line 4<br>Company web address"
           logo: "templates/logo"
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
