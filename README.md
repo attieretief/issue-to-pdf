@@ -28,7 +28,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           address: "<strong>COMPANY</strong><br>Address1<br>Address2<br>Address3<br>Address4<br>homepage"
-          logo: "templates/logo.jpg"
+          logo: "templates/logo.png"
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -75,7 +75,7 @@ For those unfamiliar with GitHub Actions, here's a breakdown of the process:
   with:
     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     address: "<strong>COMPANY</strong><br>Address1<br>Address2<br>Address3<br>Address4<br>homepage"
-    logo: "templates/logo.jpg"
+    logo: "templates/logo.png"
 ```
 
 3. In this step, changes are committed and pushed to the remote. For more information on customizing the commit, refer to [this](https://github.com/stefanzweifel/git-auto-commit-action).
