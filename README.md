@@ -56,6 +56,8 @@ The issue title is used as the main title of the PDF document.
 - Each h1 header starts a new chapter with a cover page.
 - Each h2 header starts a new page within a chapter.
 
+To include a client name in the footer of the cover page, add a label sucb as "client: ABC Industries" to the issue.
+
 ## How It Works
 
 For those unfamiliar with GitHub Actions, here's a breakdown of the process:
