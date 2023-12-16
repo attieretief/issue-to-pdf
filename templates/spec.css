@@ -4,7 +4,7 @@
   
     @bottom-left {
       color: #808080;
-      content: string(chapter) " - " string(heading);
+      content: string(title) "\A" string(chapter) " - " string(heading);
     }
   
     @bottom-right {
@@ -15,7 +15,7 @@
     @top-left {
       background-color: rgb(210, 229, 255);
       color: #244369;
-      content: string(title);
+      content: string(chapter);
       padding-top: 1.6cm;
       width: 85%
     }
