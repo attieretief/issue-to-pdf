@@ -126,10 +126,10 @@ if os.path.exists('logo'):
 
 errors = []
 print('Converting Github Issue to PDF')
-# try:
-_mdfile(markdown_input=body,css_file_name=css)
-_cleanup()
-# except:
-    # log_error(number)
+try:
+    _mdfile(markdown_input=body,css_file_name=css)
+    _cleanup()
+except:
+    log_error(number)
 
 print('Find your exported PDF in ' +output_dir )
