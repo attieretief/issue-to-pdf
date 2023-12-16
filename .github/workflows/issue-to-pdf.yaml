@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_KEY }}
-      - name: make-pdf
+      - name: Kake-pdf
         id: make-pdf
         uses: ./ # Uses an action in the root directory
         # or use a released GitHub Action
@@ -24,6 +24,7 @@ jobs:
           title: "Technical Specification"
           address: "<strong>LINC</strong><br>5th Floor, Gihon Building<br>Sportica Crescent<br>Tygervalley<br>Belville<br>linc.co.za"
           logo: "templates/logo"
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'pdf from gh issue'
