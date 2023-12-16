@@ -63,7 +63,7 @@ def _client():
 
 def _mdinput():
     return (
-        f'{title}\n\n'
+        f'{title}\n'
         '{: .title}\n\n'
         '<div class="footer">'
         '<div class="address">'
