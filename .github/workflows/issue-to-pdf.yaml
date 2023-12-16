@@ -20,7 +20,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_KEY }}
           address: "<strong>COMPANY</strong><br>Address line 1<br>Address line 2<br>Address line 3<br>Address line 4<br>Company web address"
-          logo: "templates/logo"
+          logo: "templates/logo.jpg"
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
