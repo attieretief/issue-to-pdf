@@ -58,7 +58,7 @@ runs:
         echo "CREATED=${{ github.event.issue.created_at }}" >> $GITHUB_ENV
         echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
         echo "REPO=${{ github.event.repository.name }}" >> $GITHUB_ENV
-        echo "LABELS=${{ github.event.issue.labels }}" >> $GITHUB_ENV
+        echo "LABELS=${{ github.event.issue.labels[0].name }}" >> $GITHUB_ENV
         echo "${{ github.event.issue.body }}" > body.md
         cp ${{ inputs.logo }} logo
       shell: bash
