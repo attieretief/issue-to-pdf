@@ -4,7 +4,7 @@
   
     @bottom-left {
       color: #808080;
-      content: string(title) " - " string(heading);
+      content: string(chapter) " - " string(heading);
     }
   
     @bottom-right {
@@ -75,22 +75,23 @@
     font-size: 0.75rem;
   }
   
-  h1 {
+  .title {
     color: #244369;
+    string-set: title content();
     font-size: 2rem;
     page: cover;
-    string-set: title content();
+    margin-top: 20%;
+  }
+
+  h1 {
+    color: #244369;
+    font-size: 1.5rem;
+    page: cover;
+    string-set: chapter content();
     margin-bottom: 0rem;
     margin-top: 50%;
   }
-  
-  .sub {
-    color: #244369;
-    string-set: sub content();
-    font-size: 1.5rem;
-    margin-top: 10;
-  }
-  
+    
   .footer {
     font-size: 0.9rem;
     color: #244369;

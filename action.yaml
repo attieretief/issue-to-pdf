@@ -9,10 +9,6 @@ inputs:
   token:
     description: Personal access token
     required: true
-  title:
-    description: Title of the PDF document
-    required: true
-    default: 'Issue Specification'
   address:
     description: Company address to include on the cover page
     required: true
@@ -52,8 +48,7 @@ runs:
         echo "CSS=${{ inputs.css }}" >> $GITHUB_ENV
         echo "LOGO=${{ inputs.logo }}" >> $GITHUB_ENV
         echo "NUMBER=${{ github.event.issue.number }}" >> $GITHUB_ENV
-        echo "TITLE=${{ inputs.title }}" >> $GITHUB_ENV
-        echo "SUBTITLE=${{ github.event.issue.title }}" >> $GITHUB_ENV
+        echo "TITLE=${{ github.event.issue.title }}" >> $GITHUB_ENV
         echo "AUTHOR=${{ github.event.issue.user.login }}" >> $GITHUB_ENV
         echo "CREATED=${{ github.event.issue.created_at }}" >> $GITHUB_ENV
         echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
