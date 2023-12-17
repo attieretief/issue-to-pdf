@@ -1,7 +1,7 @@
 # issue-to-pdf
-> GitHub Action to monitor and convert an issue into PDF specification within your repository.
-
-What if you could automatically convert GitHub Issues into PDF specification files, allowing you to write using just a browser?
+> GitHub Action to convert an issue into PDF file within your repository.
+> The samples provided are to generate a "Technical Specification" from an issue, but by customizing or 
+> providing your own css, the generated PDF can server any purpose you wish
 
 ## Usage
 
