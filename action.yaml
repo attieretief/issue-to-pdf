@@ -13,10 +13,6 @@ inputs:
     description: Company address to include on the cover page
     required: true
     default: "<strong>COMPANY</strong><br>Address line 1<br>Address line 2<br>Address line 3<br>Address line 4<br>Company web address"
-  label:
-    description: Label on issue to trigger the update
-    required: false
-    default: 'publish'
   dest:
     required: false
     description: Destination path generated PDF file

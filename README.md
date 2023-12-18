@@ -15,6 +15,7 @@ on:
 
 jobs:
   issue-to-pdf:
+    if: contains(github.event.issue.labels.*.name, 'publish')
     runs-on: ubuntu-latest
     name: issue-to-pdf
     steps:
@@ -106,9 +107,6 @@ Visit https://github.com/settings/tokens/new to create a new personal access tok
     # ----------------------------------
     # All parameters below are optional.
     # ----------------------------------
-
-    # By default, `publish` label is required for the workflow to work.
-    label: 'publish'
 
     # New files are located at `<project-root>/<dest>/<issue_number>/<issue_number>.pdf`. (default: 'PDFs')
     dest: 'PDFs'
