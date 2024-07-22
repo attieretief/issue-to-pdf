@@ -33,6 +33,7 @@ def _html_render(markdown_file_name, css_file_name):
             json={
                 "text": markdown_input,
                 "mode": "gfm",
+                "context": f"{repo}",
             },
         )
         html = response.text
@@ -70,7 +71,6 @@ def _html(markdown_file_name, css_file_name):
             </html>
             """
 
-
 def _convert(markdown_file_name, css_file_name):
     file_name = os.path.splitext(markdown_file_name)[0]
     # html_string = _html(markdown_file_name, css_file_name)
@@ -84,7 +84,6 @@ def _convert(markdown_file_name, css_file_name):
     markdown_path = os.path.dirname(markdown_file_name)
     html = HTML(string=html_string, base_url=markdown_path)
     html.write_pdf(file_name + ".pdf")
-
 
 def _client():
     for l in labels.split(','):
@@ -124,14 +123,12 @@ def _mdfile(markdown_input, css_file_name):
     markdown_file.close()
     _convert(markdown_file.name, css_file_name)
 
-
 def _cleanup():
     os.remove("body.md")
     os.remove(output_dir + '/' + str(number) + '.md')
     os.remove(output_dir + '/' + str(number) + '.html')
     if os.path.exists(output_dir + '/logo'):
         os.remove(output_dir + '/logo')
-
 
 def log_error(error):
     if not os.path.isfile(output_dir + "error_log.txt"):
@@ -142,7 +139,6 @@ def log_error(error):
         myfile.write("\n\n" + str(datetime.now()) + "\n" + error)
         myfile.close()
     return
-
 
 # Create the output folder if it doesn't exist
 if not os.path.exists(output_dir):
@@ -161,3 +157,4 @@ except:
     log_error(number)
 
 print('Find your exported PDF in ' +output_dir )
+

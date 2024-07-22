@@ -48,7 +48,7 @@ runs:
         echo "AUTHOR=${{ github.event.issue.user.login }}" >> $GITHUB_ENV
         echo "CREATED=${{ github.event.issue.created_at }}" >> $GITHUB_ENV
         echo "UPDATED=${{ github.event.issue.updated_at }}" >> $GITHUB_ENV
-        echo "REPO=${{ github.event.repository.name }}" >> $GITHUB_ENV
+        echo "REPO=${{ github.event.repo }}" >> $GITHUB_ENV
         echo "LABELS=${{ github.event.issue.labels[0].name }},${{ github.event.issue.labels[1].name }},${{ github.event.issue.labels[2].name }}" >> $GITHUB_ENV
         echo "${{ github.event.issue.body }}" > body.md
         cp ${{ inputs.logo }} logo
@@ -57,3 +57,4 @@ runs:
       id: make-pdf
       run: python ${{ github.action_path }}/src/make-pdf.py
       shell: bash
+
