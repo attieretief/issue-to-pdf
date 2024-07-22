@@ -3,6 +3,7 @@ import markdown
 from markdown_include.include import MarkdownInclude
 from weasyprint import HTML
 from datetime import datetime
+import requests
 
 # OPTIONS:
 token = os.environ.get("TOKEN")
@@ -19,6 +20,31 @@ css = os.environ.get("CSS")
 address = os.environ.get("ADDRESS")
 body = open("body.md", mode="r", encoding="utf-8").read()
 
+def _html_render(markdown_file_name, css_file_name):
+   with open(markdown_file_name, mode="r", encoding="utf-8") as markdown_file, open(css_file_name, mode="r", encoding="utf-8") as css_file:
+        markdown_input = markdown_file.read()
+        css_input = css_file.read()
+        response = requests.post(
+            "https://api.github.com/markdown",
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Accept": "application/vnd.github+json",
+            },
+            json={
+                "text": markdown_input,
+                "mode": "markdown",
+            },
+        )
+        html = response.text
+
+        return f"""
+            <html>
+              <head>
+                <style>{css_input}</style>
+              </head>
+              <body>{html}</body>
+            </html>
+            """
 
 def _html(markdown_file_name, css_file_name):
     with open(markdown_file_name, mode="r", encoding="utf-8") as markdown_file:
@@ -44,7 +70,8 @@ def _html(markdown_file_name, css_file_name):
 
 def _convert(markdown_file_name, css_file_name):
     file_name = os.path.splitext(markdown_file_name)[0]
-    html_string = _html(markdown_file_name, css_file_name)
+    # html_string = _html(markdown_file_name, css_file_name)
+    html_string = _html_render(markdown_file_name, css_file_name)
 
     with open(
         file_name + ".html", "w", encoding="utf-8", errors="xmlcharrefreplace"
