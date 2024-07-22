@@ -152,7 +152,7 @@ errors = []
 print('Converting Github Issue to PDF')
 try:
     _mdfile(markdown_input=body,css_file_name=css)
-    # _cleanup()
+    _cleanup()
 except:
     log_error(number)
 
