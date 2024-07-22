@@ -32,7 +32,7 @@ def _html_render(markdown_file_name, css_file_name):
             },
             json={
                 "text": markdown_input,
-                "mode": "markdown",
+                "mode": "gfm",
             },
         )
         html = response.text
