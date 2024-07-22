@@ -70,8 +70,9 @@ def _html(markdown_file_name, css_file_name):
 
 def _convert(markdown_file_name, css_file_name):
     file_name = os.path.splitext(markdown_file_name)[0]
-    html_string = _html(markdown_file_name, css_file_name)
-    # html_string = _html_render(markdown_file_name, css_file_name)
+    # html_string = _html(markdown_file_name, css_file_name)
+    html_render = _html_render(markdown_file_name, css_file_name)
+    html_string = f'{_html_input()}\n\n{html_render}'
 
     with open(
         file_name + ".html", "w", encoding="utf-8", errors="xmlcharrefreplace"
@@ -88,10 +89,9 @@ def _client():
         if "client:" in l:
             return(l.split(":")[1])
 
-def _mdinput():
+def _html_input():
     return (
-        f'{title}\n'
-        '{: .title}\n\n'
+        f'<p class="title">{title}</p>'
         '<div class="footer">'
         '<div class="address">'
         f'{address}'
@@ -117,7 +117,7 @@ def _mdinput():
 
 def _mdfile(markdown_input, css_file_name):
     with open(output_dir + '/' + str(number) + '.md', mode="w", encoding="utf-8") as markdown_file:
-        markdown_file.write(_mdinput())
+        # markdown_file.write(_mdinput())
         markdown_file.write(markdown_input)
     markdown_file.close()
     _convert(markdown_file.name, css_file_name)
