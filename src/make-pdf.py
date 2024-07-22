@@ -70,8 +70,8 @@ def _html(markdown_file_name, css_file_name):
 
 def _convert(markdown_file_name, css_file_name):
     file_name = os.path.splitext(markdown_file_name)[0]
-    # html_string = _html(markdown_file_name, css_file_name)
-    html_string = _html_render(markdown_file_name, css_file_name)
+    html_string = _html(markdown_file_name, css_file_name)
+    # html_string = _html_render(markdown_file_name, css_file_name)
 
     with open(
         file_name + ".html", "w", encoding="utf-8", errors="xmlcharrefreplace"
@@ -154,7 +154,7 @@ errors = []
 print('Converting Github Issue to PDF')
 try:
     _mdfile(markdown_input=body,css_file_name=css)
-    _cleanup()
+    # _cleanup()
 except:
     log_error(number)
 
