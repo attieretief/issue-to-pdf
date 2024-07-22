@@ -13,12 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.PERSONAL_KEY }}
       - name: Make-pdf
         id: make-pdf
         uses: attieretief/issue-to-pdf@main
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.PERSONAL_KEY }}
           address: "<strong>COMPANY</strong><br>Address1<br>Address2<br>Address3<br>Address4<br>homepage"
           logo: "templates/logo.png"
       - name: Commit
