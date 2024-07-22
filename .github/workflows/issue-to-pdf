@@ -1,0 +1,27 @@
+on:
+  issues:
+    types:
+      - labeled
+      - edited
+
+jobs:
+  issue-to-pdf:
+    if: contains(github.event.issue.labels.*.name, 'publish')
+    runs-on: ubuntu-latest
+    name: issue-to-pdf
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - name: Make-pdf
+        id: make-pdf
+        uses: attieretief/issue-to-pdf@main
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          address: "<strong>COMPANY</strong><br>Address1<br>Address2<br>Address3<br>Address4<br>homepage"
+          logo: "templates/logo.png"
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'pdf from gh issue'
